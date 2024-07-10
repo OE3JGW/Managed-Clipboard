@@ -11,3 +11,7 @@ On the Config page you also can Import/Export your templates as a json file name
 
 If you click on a template on the config page you can see a preview (does not work with every content, as some content relies on stuff that only the page has where it comes from).
 
+Installation:
+Unpack the zip somewhere. 
+Go to chrome://extensions/ and enable DEV-Mode. Add the extension as an unpacked extension. 
+Thats it :) 
