@@ -19,4 +19,4 @@ Thats it :)
 
 
 ![picture1](https://github.com/lyrics1988123/Managed-Clipboard/assets/35185804/14f0572b-8c14-4e4a-973d-c4fdd8580bdd)
-![picture2](https://github.com/lyrics1988123/Managed-Clipboard/assets/35185804/7c24b7a1-f5e7-45af-8ed5-60961d2dd3a5)
+![picture2](https://github.com/lyrics1988123/Managed-Clipboard/assets/35185804/660d9475-89a2-46dd-b6d7-f493096a04c2)
