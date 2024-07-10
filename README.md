@@ -18,5 +18,5 @@ Thats it :)
 
 
 
-![picture1](https://github.com/lyrics1988123/Managed-Clipboard/assets/35185804/82f62d26-97fa-4723-91af-ca859fb870ce)
+![picture1](https://github.com/lyrics1988123/Managed-Clipboard/assets/35185804/14f0572b-8c14-4e4a-973d-c4fdd8580bdd)
 ![picture2](https://github.com/lyrics1988123/Managed-Clipboard/assets/35185804/7c24b7a1-f5e7-45af-8ed5-60961d2dd3a5)
