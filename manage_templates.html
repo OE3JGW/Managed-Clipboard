@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Templates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 100px; /* Größe des Logos anpassen */
+            height: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .button-group {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-group button:hover {
+            background-color: #ddd;
+        }
+        .template {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.05);
+        }
+        .template-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .template-content {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            word-break: break-word;
+        }
+        .template strong {
+            flex: 1;
+        }
+        .template .marker {
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .template .marker.html {
+            color: green;
+        }
+        .template .marker.plain {
+            color: darkgray;
+        }
+        .delete-btn, .edit-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .delete-btn {
+            color: red;
+        }
+        .delete-btn:hover {
+            color: darkred;
+        }
+        .edit-btn {
+            color: blue;
+        }
+        .edit-btn:hover {
+            color: darkblue;
+        }
+        .import-template {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .import-template input {
+            margin-bottom: 10px;
+        }
+        .import-template small {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="images/icongross.png" alt="Logo">
+    </div>
+    <h1>Manage Templates</h1>
+    <div class="button-group">
+        <button id="savePlainTextTemplateBtn">Save from Clipboard as PlainText</button>
+        <button id="saveHtmlTemplateBtn">Save from Clipboard as HTML</button>
+    </div>
+    <div class="import-template">
+        <small>Note: The file should be named "templates.json".</small>
+        <button id="importTemplateBtn">Import Templates</button>
+        <button id="exportTemplateBtn">Export Templates</button>
+        <input type="file" id="importFileInput" accept=".json">
+    </div>
+    <div id="templates"></div>
+    <script src="manage_templates.js"></script>
+</body>
+</html>
