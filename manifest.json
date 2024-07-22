@@ -1,14 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Managed Clipboard",
-  "version": "0.2",
+  "version": "0.3",
   "description": "Can store clipboards as templates and use them @Juergen Waissnix",
   "permissions": [
     "activeTab",
-    "tabs",
     "scripting",
     "clipboardRead",
-    "clipboardWrite",
     "contextMenus",
     "storage"
   ],
