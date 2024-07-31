@@ -1,10 +1,10 @@
 # Managed-Clipboard
 Chrome-Plugin for creating templates from clipboard-data
 
-# Chrome Store:
+**Chrome Store:**
 https://chromewebstore.google.com/detail/managed-clipboard/jhamoadoglkadkhhlmempkhfknaccnap?authuser=0&hl=de
 
-# Edge Store:
+**Edge Store:**
 https://microsoftedge.microsoft.com/addons/detail/managed-clipboard/bhajolbailohbjkeemlhdhjffafhhogh
 
 
