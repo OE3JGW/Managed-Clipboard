@@ -1,6 +1,12 @@
 # Managed-Clipboard
 Chrome-Plugin for creating templates from clipboard-data
 
+# Chrome Store:
+https://chromewebstore.google.com/detail/managed-clipboard/jhamoadoglkadkhhlmempkhfknaccnap?authuser=0&hl=de
+
+# Edge Store:
+https://microsoftedge.microsoft.com/addons/detail/managed-clipboard/bhajolbailohbjkeemlhdhjffafhhogh
+
 
 Mark the text/area/picture/etc. which you like to have as a template, copy it with strg+c and then right click\Managed Clipboard\[ Manage Templates ] which opens the options-page. 
 Now, depending on the type of content you try to save as a template choose "Save from Clipboard as Plain Text"/"Save from Clipboard as HTML". 
