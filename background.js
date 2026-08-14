@@ -14,7 +14,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         const templateId = info.menuItemId.split('_')[1];
         chrome.storage.local.get(['templates'], function(result) {
             const template = result.templates ? result.templates[templateId] : null;
-            if (template && !tab.url.startsWith('chrome://')) {
+            if (template && tab && tab.id && tab.url && !tab.url.startsWith('chrome://')) {
                 chrome.scripting.executeScript({
                     target: {tabId: tab.id, allFrames: true},
                     function: insertTemplate,
@@ -33,43 +33,78 @@ function createContextMenu() {
             id: 'manageClipboard',
             title: 'Managed Clipboard',
             contexts: ['all']
-        });
-
-        chrome.contextMenus.create({
-            id: 'manageTemplates',
-            title: '[ Manage Templates ]',
-            parentId: 'manageClipboard',
-            contexts: ['all']
-        });
-
-        updateTemplatesContextMenu();
-    });
-}
-
-function updateTemplatesContextMenu() {
-    chrome.storage.local.get(['templates'], function(result) {
-        const templates = result.templates || [];
-        templates.forEach((template, index) => {
+        }, () => {
             chrome.contextMenus.create({
-                id: `template_${index}`,
-                title: template.name,
+                id: 'manageTemplates',
+                title: '[ Manage Templates ]',
                 parentId: 'manageClipboard',
                 contexts: ['all']
+            }, () => {
+                updateTemplatesContextMenu();
             });
         });
     });
 }
 
+function updateTemplatesContextMenu() {
+    chrome.storage.local.get(['templates', 'groups'], function(result) {
+        const templates = result.templates || [];
+        const groups = result.groups || [];
+        const items = [];
+
+        groups.forEach((group) => {
+            const hasItems = templates.some(t => t.groupId === group.id);
+            if (!hasItems) {
+                return;
+            }
+            items.push({
+                id: 'group_' + group.id,
+                title: group.name,
+                parentId: 'manageClipboard',
+                contexts: ['all']
+            });
+        });
+
+        templates.forEach((template, index) => {
+            const grouped = template.groupId && groups.some(g => g.id === template.groupId);
+            items.push({
+                id: 'template_' + index,
+                title: template.name,
+                parentId: grouped ? 'group_' + template.groupId : 'manageClipboard',
+                contexts: ['all']
+            });
+        });
+
+        createMenuItems(items, 0);
+    });
+}
+
+function createMenuItems(items, index) {
+    if (index >= items.length) {
+        return;
+    }
+    chrome.contextMenus.create(items[index], () => {
+        createMenuItems(items, index + 1);
+    });
+}
+
 function insertTemplate(template) {
     var activeElement = document.activeElement;
-    console.log('Active Element:', activeElement); // Debugging
     if (activeElement.tagName === "TEXTAREA" || activeElement.tagName === "INPUT" || activeElement.isContentEditable) {
         if (activeElement.isContentEditable) {
-            // Handle contenteditable elements
             document.execCommand('insertHTML', false, template.content);
         } else {
-            // If it's a textarea or input, insert as plain text
-            activeElement.value += template.content;
+            try {
+                var start = activeElement.selectionStart;
+                var end = activeElement.selectionEnd;
+                var value = activeElement.value;
+                activeElement.value = value.slice(0, start) + template.content + value.slice(end);
+                var pos = start + template.content.length;
+                activeElement.selectionStart = pos;
+                activeElement.selectionEnd = pos;
+            } catch (e) {
+                activeElement.value += template.content;
+            }
         }
     } else {
         var range = document.createRange();

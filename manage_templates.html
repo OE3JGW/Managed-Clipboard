@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Manage Templates</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
             max-width: 600px;
             margin: auto;
             padding: 20px;
             background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            user-select: none;
+            -webkit-user-select: none;
         }
         .logo {
             text-align: center;
             margin-bottom: 20px;
         }
         .logo img {
-            max-width: 100px; /* Größe des Logos anpassen */
+            max-width: 100px;
             height: auto;
+            -webkit-user-drag: none;
+            pointer-events: none;
         }
         h1 {
             text-align: center;
@@ -40,6 +44,48 @@
         }
         .button-group button:hover {
             background-color: #ddd;
+        }
+        .drag-handle {
+            width: 14px;
+            height: 20px;
+            margin-right: 8px;
+            cursor: grab;
+            flex-shrink: 0;
+            touch-action: none;
+            user-select: none;
+            background-image: radial-gradient(#9a9a9a 1.15px, transparent 1.2px);
+            background-size: 7px 6.6px;
+            background-repeat: repeat;
+        }
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+        .group {
+            margin-bottom: 18px;
+        }
+        .group.dragging,
+        .template.dragging {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+        .group-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #ccc;
+        }
+        .group-header strong {
+            flex: 1;
+            font-size: 17px;
+            color: #333;
+        }
+        .group-items {
+            padding-left: 8px;
+            min-height: 28px;
+        }
+        .ungrouped {
+            min-height: 24px;
         }
         .template {
             display: flex;
@@ -77,23 +123,23 @@
         .template .marker.plain {
             color: darkgray;
         }
-        .delete-btn, .edit-btn {
+        .delete-btn, .edit-btn, .delete-group-btn, .edit-group-btn {
             background: none;
             border: none;
             font-size: 20px;
             cursor: pointer;
             margin-left: 10px;
         }
-        .delete-btn {
+        .delete-btn, .delete-group-btn {
             color: red;
         }
-        .delete-btn:hover {
+        .delete-btn:hover, .delete-group-btn:hover {
             color: darkred;
         }
-        .edit-btn {
+        .edit-btn, .edit-group-btn {
             color: blue;
         }
-        .edit-btn:hover {
+        .edit-btn:hover, .edit-group-btn:hover {
             color: darkblue;
         }
         .import-template {
@@ -118,9 +164,10 @@
     <div class="button-group">
         <button id="savePlainTextTemplateBtn">Save from Clipboard as PlainText</button>
         <button id="saveHtmlTemplateBtn">Save from Clipboard as HTML</button>
+        <button id="addHeadingBtn">Add Heading</button>
     </div>
     <div class="import-template">
-        <small>Note: The file should be named "templates.json".</small>
+        <small>The file should be named "templates.json".</small>
         <button id="importTemplateBtn">Import Templates</button>
         <button id="exportTemplateBtn">Export Templates</button>
         <input type="file" id="importFileInput" accept=".json">

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Managed Clipboard",
-  "version": "0.3",
+  "version": "0.4",
   "description": "Can store clipboards as templates and use them @Juergen Waissnix",
   "permissions": [
     "activeTab",
@@ -14,24 +14,18 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Clipboard Paste on Space",
+    "default_title": "Managed Clipboard",
     "default_icon": {
-      "16": "Images/icon16.png",
-      "32": "Images/icon32.png",
-      "48": "Images/icon48.png",
-      "128": "Images/icon128.png"
+      "16": "images/icon16.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
     }
   },
   "icons": {
-    "16": "Images/icon16.png",
-    "32": "Images/icon32.png",
-    "48": "Images/icon48.png",
-    "128": "Images/icon128.png"
-  },
-  "web_accessible_resources": [
-    {
-      "resources": ["manage_templates.html", "manage_templates.js"],
-      "matches": ["<all_urls>"]
-    }
-  ]
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
 }
