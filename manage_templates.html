@@ -146,13 +146,35 @@
             text-align: center;
             margin-top: 20px;
         }
-        .import-template input {
-            margin-bottom: 10px;
-        }
         .import-template small {
             display: block;
             margin-bottom: 10px;
             color: #555;
+        }
+        #importFileInput {
+            display: none;
+        }
+        .import-template button {
+            margin: 0 4px 10px;
+        }
+        #importFileName {
+            margin-left: 8px;
+            color: #555;
+            font-size: 14px;
+        }
+        .security-notice {
+            margin: 0 0 20px;
+            padding: 12px 14px;
+            border: 1px solid #e0c36a;
+            border-radius: 5px;
+            background: #fff8e1;
+            color: #5c4b00;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+        .security-notice strong {
+            display: block;
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -161,6 +183,10 @@
         <img src="images/icongross.png" alt="Logo">
     </div>
     <h1>Manage Templates</h1>
+    <div class="security-notice" role="note">
+        <strong>Do not store secrets in templates.</strong>
+        Do not save passwords, credentials, API keys, tokens, certificates, or similar secrets. Templates are stored unencrypted in the browser profile and can be exported as JSON.
+    </div>
     <div class="button-group">
         <button id="savePlainTextTemplateBtn">Save from Clipboard as PlainText</button>
         <button id="saveHtmlTemplateBtn">Save from Clipboard as HTML</button>
@@ -171,6 +197,8 @@
         <button id="importTemplateBtn">Import Templates</button>
         <button id="exportTemplateBtn">Export Templates</button>
         <input type="file" id="importFileInput" accept=".json">
+        <button type="button" id="chooseImportFileBtn">Choose File</button>
+        <span id="importFileName">No file selected</span>
     </div>
     <div id="templates"></div>
     <script src="manage_templates.js"></script>

@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
         addHeading();
     });
 
+    document.getElementById('chooseImportFileBtn').addEventListener('click', () => {
+        document.getElementById('importFileInput').click();
+    });
+
+    document.getElementById('importFileInput').addEventListener('change', function() {
+        const nameEl = document.getElementById('importFileName');
+        nameEl.textContent = this.files.length > 0 ? this.files[0].name : 'No file selected';
+    });
+
     document.getElementById('importTemplateBtn').addEventListener('click', () => {
         importTemplates();
     });
@@ -124,7 +133,7 @@ function buildTemplateCard(template, index) {
                 if (testDiv.innerHTML.trim() === template.content.trim()) {
                     contentDiv.innerHTML = template.content;
                 } else {
-                    contentDiv.innerHTML = `<small>Kann nicht gerendert werden</small><br><pre>${escapeHtml(template.content)}</pre>`;
+                    contentDiv.innerHTML = `<small>Cannot be rendered</small><br><pre>${escapeHtml(template.content)}</pre>`;
                 }
             } else {
                 contentDiv.textContent = template.content;
@@ -390,43 +399,54 @@ function saveTemplateFromClipboard(type) {
     });
 }
 
+function clearImportFile() {
+    const fileInput = document.getElementById('importFileInput');
+    fileInput.value = '';
+    document.getElementById('importFileName').textContent = 'No file selected';
+}
+
 function importTemplates() {
     const fileInput = document.getElementById('importFileInput');
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const parsed = JSON.parse(e.target.result);
-                chrome.storage.local.get(['templates', 'groups'], function(result) {
-                    let templates = result.templates || [];
-                    let groups = result.groups || [];
-                    if (Array.isArray(parsed)) {
-                        templates = templates.concat(parsed);
-                    } else if (parsed && Array.isArray(parsed.templates)) {
-                        templates = templates.concat(parsed.templates);
-                        if (Array.isArray(parsed.groups)) {
-                            parsed.groups.forEach(g => {
-                                if (g && g.id && !groups.some(x => x.id === g.id)) {
-                                    groups.push({id: g.id, name: g.name || g.id});
-                                }
-                            });
-                        }
-                    } else {
-                        console.error('Failed to parse templates: unexpected format');
-                        return;
-                    }
-                    chrome.storage.local.set({templates: templates, groups: groups}, function() {
-                        loadTemplates();
-                        chrome.runtime.sendMessage({action: "updateContextMenu"});
-                    });
-                });
-            } catch (error) {
-                console.error('Failed to parse templates:', error);
-            }
-        };
-        reader.readAsText(file);
+    if (fileInput.files.length === 0) {
+        alert('Please choose a file first.');
+        return;
     }
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const parsed = JSON.parse(e.target.result);
+            chrome.storage.local.get(['templates', 'groups'], function(result) {
+                let templates = result.templates || [];
+                let groups = result.groups || [];
+                let incoming = [];
+                if (Array.isArray(parsed)) {
+                    incoming = parsed;
+                } else if (parsed && Array.isArray(parsed.templates)) {
+                    incoming = parsed.templates;
+                    if (Array.isArray(parsed.groups)) {
+                        parsed.groups.forEach(g => {
+                            if (g && g.id && !groups.some(x => x.id === g.id)) {
+                                groups.push({id: g.id, name: g.name || g.id});
+                            }
+                        });
+                    }
+                } else {
+                    console.error('Failed to parse templates: unexpected format');
+                    return;
+                }
+                templates = templates.concat(incoming);
+                chrome.storage.local.set({templates: templates, groups: groups}, function() {
+                    clearImportFile();
+                    loadTemplates();
+                    chrome.runtime.sendMessage({action: "updateContextMenu"});
+                });
+            });
+        } catch (error) {
+            console.error('Failed to parse templates:', error);
+        }
+    };
+    reader.readAsText(file);
 }
 
 function exportTemplates() {
