@@ -24,5 +24,5 @@ Thats it :)
 
 
 
-![picture1](https://github.com/lyrics1988123/Managed-Clipboard/assets/35185804/14f0572b-8c14-4e4a-973d-c4fdd8580bdd)
+<img width="645" height="590" alt="image" src="https://github.com/user-attachments/assets/d26e715a-a58d-4328-ab98-f14a6ab13f62" />
 ![picture2](https://github.com/lyrics1988123/Managed-Clipboard/assets/35185804/660d9475-89a2-46dd-b6d7-f493096a04c2)
